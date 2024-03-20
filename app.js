@@ -3,9 +3,26 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var config = require("./config");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var labHubRouter = require('./routes/labhub');
+
+let uri = `mongodb+srv://${config.database.username}:${config.database.password}@${config.database.host}`;
+
+// Connect using mongoose
+// some of the code appears to be decapricated with the lts version of Node... 
+(async function connectToMongoDB() {
+  try {
+    await mongoose.connect(uri, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+    console.log("DB successfully connected");
+  } catch (e) {
+    console.log("DB connection error", e);
+  }
+})();
 
 var app = express();
 
@@ -21,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/labhub', labHubRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
