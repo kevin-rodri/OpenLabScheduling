@@ -16,6 +16,16 @@ var userSchema = new Schema({
         enum: ['student', 'admin'],
         default: 'student',
         required: true
+    }, 
+    username: {
+        // assuming using qu email
+        type: String,
+        unique : true,
+        required: true
+    }, 
+    password: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

@@ -24,7 +24,7 @@ var labSchema = new Schema({
         required: true
     },
     instructor: {
-        type: [Schema.Types.ObjectId],
+        type: Schema.Types.ObjectId,
         ref: 'user',
         required: true
     }
