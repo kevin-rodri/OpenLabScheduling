@@ -18,6 +18,15 @@ var absenceSchema = new Schema({
     timestamps: true
 });
 
-var absences = mongoose.model('absence', absenceSchema);
+absenceSchema.pre('save', function(next) {
+  if (this.studentId.length === 0) {
+    next(new Error('Validation error: studentId is required.'));
+  } else {
+    next();
+  }
+});
+ 
 
-module.exports = absences;
+var Absences = mongoose.model('absence', absenceSchema);
+
+module.exports = Absences;
