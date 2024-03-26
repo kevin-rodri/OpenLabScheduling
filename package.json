@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,5 +14,11 @@
     "jade": "~1.11.0",
     "mongoose": "^8.2.3",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^10.3.0",
+    "mongodb-memory-server": "^9.1.7"
   }
 }
