@@ -25,39 +25,42 @@ describe('Absence Schema Tests', function () {
         await mongoServer.stop();
     });
 
-    // Test to ensure the studentId field is required
+     // Test to ensure the studentId field is required
     it('should require a studentId', async function () {
-        const absenceWithoutStudentId = new Absence({ status: 'present' });
-        // Attempting to save an Absence document without a studentId should result in an error
-        await expect(absenceWithoutStudentId.save()).to.be.rejectedWith(Error, 'Validation error: studentId is required.');
+        const labId = new mongoose.Types.ObjectId(); // Mock lab ID
+        const absenceWithoutStudentId = new Absence({ labId, absenceList: [{ status: 'absent' }] });
+        return expect(absenceWithoutStudentId.save()).to.be.rejectedWith(mongoose.Error.ValidationError, 'absence validation failed: absenceList.0.studentId: Path `studentId` is required.');
     });
-
+    
     // Test to check the default value of the status field
     it('should default status to "present"', async function () {
         const studentId = new mongoose.Types.ObjectId(); 
-        const absence = new Absence({ studentId });
+        const labId =  new mongoose.Types.ObjectId(); 
+        const absence = new Absence({ labId, absenceList: [{ studentId }] });
         const savedAbsence = await absence.save();
 
         // The saved document should have 'present' as its status by default
-        expect(savedAbsence.status).to.equal('present');
+        expect(savedAbsence.absenceList[0].status).to.equal('present');
     });
 
     // Test to ensure the status field only allows 'present' or 'absent'
     it('should allow only "present" or "absent" as status', async function () {
         const studentId = new mongoose.Types.ObjectId(); // Mock student ID
+        const labId =  new mongoose.Types.ObjectId(); 
         // Create a valid Absence with 'absent' status
-        const validAbsence = new Absence({ studentId, status: 'absent' });
+        const validAbsence = new Absence({ labId , absenceList: [{ studentId, status: 'absent' }] });
         await expect(validAbsence.save()).to.eventually.be.fulfilled;
 
         // Attempt to save an Absence with an invalid status value, which should fail
-        const invalidAbsence = new Absence({ studentId, status: 'invalid_status' });
+        const invalidAbsence = new Absence({ labId , absenceList: [{ studentId, status: 'invalid_status' }] });
         await expect(invalidAbsence.save()).to.eventually.be.rejectedWith(mongoose.Error.ValidationError);
     });
 
     // Test to verify that timestamps (createdAt and updatedAt) are automatically added to documents
     it('should automatically add timestamps', async function () {
         const studentId = new mongoose.Types.ObjectId(); // Mock student ID
-        const absence = new Absence({ studentId });
+        const labId =  new mongoose.Types.ObjectId(); 
+        const absence = new Absence({ labId , absenceList: [{ studentId }] });
         const savedAbsence = await absence.save();
 
         // The saved document should have both 'createdAt' and 'updatedAt' fields
