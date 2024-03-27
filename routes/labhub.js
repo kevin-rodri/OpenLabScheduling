@@ -1,7 +1,7 @@
 // required imports for router 
 var express = require('express');
 var router = express.Router();
-let abscence = require('../models/absence');
+let attendance = require('../models/attendance');
 let labs = require('../models/labs');
 let users = require('../models/users');
 

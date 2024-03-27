@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var absenceSchema = new Schema({
+var attendanceSchema = new Schema({
   labId: {
     type: Schema.Types.ObjectId,
     ref: 'labs',
@@ -33,6 +33,6 @@ var absenceSchema = new Schema({
 // });
  
 
-var Absences = mongoose.model('absence', absenceSchema);
+var Attendance = mongoose.model('attendance', attendanceSchema);
 
-module.exports = Absences;
+module.exports = Attendance;
