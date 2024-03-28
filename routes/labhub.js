@@ -90,7 +90,7 @@ router.route('/labs/:labId/registerLab/:studentId')
   .post(async (req, res, next) => {
     try {
       const labId = req.params.labId;
-      const studentId = req.params.studentId; // Will get the student Id from the abscence list (just for proof of concept for now setting it to the first index.) 
+      const studentId = req.params.studentId; 
 
       // checks if Attendance for the Lab exists
       let attendancee = await Attendance.findOne({ labId });

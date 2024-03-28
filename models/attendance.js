@@ -24,13 +24,6 @@ var attendanceSchema = new Schema({
   timestamps: true
 });
 
-// absenceSchema.pre('save', function(next) {
-//   if (this.studentId.length === 0) {
-//     next(new Error('Validation error: studentId is required.'));
-//   } else {
-//     next();
-//   }
-// });
  
 
 var Attendance = mongoose.model('attendance', attendanceSchema);

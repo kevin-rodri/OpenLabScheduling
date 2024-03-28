@@ -18,7 +18,6 @@ var userSchema = new Schema({
         required: true
     }, 
     username: {
-        // assuming using qu email
         type: String,
         unique : true,
         required: true
