@@ -13,12 +13,21 @@ let uri = `mongodb+srv://${config.database.username}:${config.database.password}
 
 // Connect using mongoose
 // some of the code appears to be decapricated with the lts version of Node... 
+// (async function connectToMongoDB() {
+//   try {
+//     await mongoose.connect(uri, {
+//       useUnifiedTopology: true,
+//       useNewUrlParser: true,
+//     });
+//     console.log("DB successfully connected");
+//   } catch (e) {
+//     console.log("DB connection error", e);
+//   }
+// })();
+
 (async function connectToMongoDB() {
   try {
-    await mongoose.connect(uri, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    });
+    await mongoose.connect(uri);
     console.log("DB successfully connected");
   } catch (e) {
     console.log("DB connection error", e);
