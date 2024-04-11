@@ -7,7 +7,9 @@ var config = require("./config");
 const mongoose = require("mongoose");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var labHubRouter = require('./routes/labhub');
+var labsRouter =  require('./routes/labs');
+var attendanceRouter =  require('./routes/attendance');
+// var labHubRouter = require('./routes/labhub');
 
 let uri = `mongodb+srv://${config.database.username}:${config.database.password}@${config.database.host}`;
 
@@ -48,7 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/labhub', labHubRouter);
+app.use('/labs', attendanceRouter);
+app.use('/attendance', attendanceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
